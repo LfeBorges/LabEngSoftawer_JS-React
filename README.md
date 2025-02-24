@@ -1,4 +1,4 @@
 <ol>
-<strong>HTML</strong>
-<strong>JAVASCRIPT</strong>
+<li><strong>HTML</strong></li>
+<li><strong>JAVASCRIPT</strong></li>
 </ol>
