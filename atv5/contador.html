@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Pessoas</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        #contador {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #contadorNumero {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="contador"></div>
+
+    <script>
+        // Função para criar o contador de pessoas
+        function criarContador() {
+            const contadorDiv = document.getElementById('contador');
+
+            // Cria o número do contador
+            const numero = document.createElement('div');
+            numero.id = 'contadorNumero';
+            numero.textContent = '0';
+
+            // Cria os botões de incremento e decremento
+            const botaoIncrementar = document.createElement('button');
+            botaoIncrementar.textContent = '+';
+            botaoIncrementar.onclick = function() {
+                numero.textContent = parseInt(numero.textContent) + 1;
+            };
+
+            const botaoDecrementar = document.createElement('button');
+            botaoDecrementar.textContent = '-';
+            botaoDecrementar.onclick = function() {
+                const valorAtual = parseInt(numero.textContent);
+                if (valorAtual > 0) {
+                    numero.textContent = valorAtual - 1;
+                }
+            };
+
+            // Adiciona os elementos ao contadorDiv
+            contadorDiv.appendChild(numero);
+            contadorDiv.appendChild(botaoIncrementar);
+            contadorDiv.appendChild(botaoDecrementar);
+        }
+
+        // Chama a função para criar o contador quando a página carregar
+        window.onload = criarContador;
+    </script>
+</body>
+</html>
