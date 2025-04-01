@@ -3,23 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Pessoas</title>
+    <title>Contadores com Soma</title>
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
         }
-        #contador {
+        .contador-container {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .contador {
             text-align: center;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #contadorNumero1, #contadorNumero2 {
+            font-size: 48px;
+            margin: 20px 0;
         }
         button {
             padding: 10px 20px;
@@ -34,49 +43,83 @@
         button:hover {
             background-color: #0056b3;
         }
-        #contadorNumero {
-            font-size: 48px;
-            margin: 20px 0;
+        #soma {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
-    <div id="contador"></div>
+    <div class="contador-container">
+        <div class="contador" id="contador1"></div>
+        <div class="contador" id="contador2"></div>
+    </div>
+    <div id="soma">Soma total: <span id="somaTotal">0</span></div>
 
     <script>
-        // Função para criar o contador de pessoas
-        function criarContador() {
-            const contadorDiv = document.getElementById('contador');
+        // Variáveis para armazenar os valores
+        let valorContador1 = 0;
+        let valorContador2 = 0;
+
+        // Função para atualizar a soma
+        function atualizarSoma() {
+            const somaTotal = valorContador1 + valorContador2;
+            document.getElementById('somaTotal').textContent = somaTotal;
+        }
+
+        // Função genérica para criar contadores
+        function criarContador(parentId, numeroId, alterarValorCallback) {
+            const contadorDiv = document.getElementById(parentId);
 
             // Cria o número do contador
             const numero = document.createElement('div');
-            numero.id = 'contadorNumero';
+            numero.id = numeroId;
             numero.textContent = '0';
 
-            // Cria os botões de incremento e decremento
+            // Cria os botões
             const botaoIncrementar = document.createElement('button');
             botaoIncrementar.textContent = '+';
-            botaoIncrementar.onclick = function() {
-                numero.textContent = parseInt(numero.textContent) + 1;
+            botaoIncrementar.onclick = () => {
+                alterarValorCallback(1);
+                numero.textContent = alterarValorCallback(0); // Só para pegar o valor atual
+                atualizarSoma();
             };
 
             const botaoDecrementar = document.createElement('button');
             botaoDecrementar.textContent = '-';
-            botaoDecrementar.onclick = function() {
-                const valorAtual = parseInt(numero.textContent);
-                if (valorAtual > 0) {
-                    numero.textContent = valorAtual - 1;
-                }
+            botaoDecrementar.onclick = () => {
+                alterarValorCallback(-1);
+                numero.textContent = alterarValorCallback(0); // Só para pegar o valor atual
+                atualizarSoma();
             };
 
-            // Adiciona os elementos ao contadorDiv
+            // Adiciona elementos
             contadorDiv.appendChild(numero);
             contadorDiv.appendChild(botaoIncrementar);
             contadorDiv.appendChild(botaoDecrementar);
         }
 
-        // Chama a função para criar o contador quando a página carregar
-        window.onload = criarContador;
+        // Funções específicas para cada contador
+        function manipularContador1(mudanca) {
+            if (mudanca === 1) valorContador1++;
+            else if (mudanca === -1 && valorContador1 > 0) valorContador1--;
+            return valorContador1;
+        }
+
+        function manipularContador2(mudanca) {
+            if (mudanca === 1) valorContador2++;
+            else if (mudanca === -1 && valorContador2 > 0) valorContador2--;
+            return valorContador2;
+        }
+
+        // Inicialização
+        window.onload = () => {
+            criarContador('contador1', 'contadorNumero1', manipularContador1);
+            criarContador('contador2', 'contadorNumero2', manipularContador2);
+        };
     </script>
 </body>
 </html>
