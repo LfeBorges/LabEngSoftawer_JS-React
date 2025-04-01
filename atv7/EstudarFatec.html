@@ -4,30 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionando React a página</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="http://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="http://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="http://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
     <div id="root"></div>
     <script type="text/babel">
 
-        function MeuElemento({agora}){
+        function Letreiro(){
+            const [texto, setTexto] = React.useState("Vem estudar na Fatec");
+
+            React.useEffect(() => {
+                const animacao = setInterval(() => {
+                    setTexto(prev => prev.slice(1) + prev[0]);
+                }, 150);
+
+                return () => clearInterval(animacao);
+            }, []);
+
             return (
-                <div>
-                    <h2>Venha estudar na Fatec {agora} </h2>
+                <div className="Letreiro">
+                    {texto}
                 </div>
             )
         }
 
         const container = document.getElementById('root');
         const root = ReactDOM.createRoot(container);
-
-        function keyframes(){
-            let now = new keyframes().toLocaleTimeString();
-            root.render(<MeuElemento agora = {now} />);
-        }
-        setInterval(tick,1000);
+        root.render(<Letreiro/>);
+        
     </script>
 </body>
 </html>
