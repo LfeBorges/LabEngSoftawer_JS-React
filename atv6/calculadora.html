@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora iPhone Style</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const app = document.getElementById('app');
+
+    // Criando a calculadora
+    const calc = document.createElement('div');
+    calc.style.width = '320px';
+    calc.style.backgroundColor = '#000';
+    calc.style.padding = '20px';
+    calc.style.borderRadius = '40px';
+    calc.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.1)';
+    calc.style.fontFamily = 'Helvetica Neue, sans-serif';
+
+    // Criando o visor
+    const visor = document.createElement('div');
+    visor.style.color = 'white';
+    visor.style.textAlign = 'right';
+    visor.style.fontSize = '3rem';
+    visor.style.padding = '20px 10px';
+    visor.style.minHeight = '60px';
+    visor.style.borderRadius = '10px';
+    visor.innerText = '0';
+    visor.style.overflowX = 'auto';
+
+    // Criando os botões
+    const botoes = document.createElement('div');
+    botoes.style.display = 'grid';
+    botoes.style.gridTemplateColumns = 'repeat(4, 1fr)';
+    botoes.style.gap = '15px';
+    botoes.style.marginTop = '20px';
+
+    const botoesLayout = [
+      { label: 'AC', classe: 'funcao' },
+      { label: '+/-', classe: 'funcao' },
+      { label: '%', classe: 'funcao' },
+      { label: '/', classe: 'operador' },
+      { label: '7', classe: 'numero' },
+      { label: '8', classe: 'numero' },
+      { label: '9', classe: 'numero' },
+      { label: '*', classe: 'operador' },
+      { label: '4', classe: 'numero' },
+      { label: '5', classe: 'numero' },
+      { label: '6', classe: 'numero' },
+      { label: '-', classe: 'operador' },
+      { label: '1', classe: 'numero' },
+      { label: '2', classe: 'numero' },
+      { label: '3', classe: 'numero' },
+      { label: '+', classe: 'operador' },
+      { label: '0', classe: 'numero zero' },
+      { label: '.', classe: 'numero' },
+      { label: '=', classe: 'operador' }
+    ];
+
+    let expressao = '';
+
+    const atualizarVisor = (valor) => {
+      visor.innerText = valor;
+    };
+
+    botoesLayout.forEach(btn => {
+      const botao = document.createElement('button');
+      botao.innerText = btn.label;
+
+      // Estilo base
+      botao.style.height = '70px';
+      botao.style.fontSize = '1.5rem';
+      botao.style.border = 'none';
+      botao.style.borderRadius = '50%';
+      botao.style.cursor = 'pointer';
+      botao.style.transition = 'opacity 0.2s';
+      botao.style.color = btn.classe === 'funcao' ? 'black' : 'white';
+
+      // Estilo por tipo
+      if (btn.classe === 'funcao') {
+        botao.style.backgroundColor = '#a5a5a5';
+      } else if (btn.classe === 'operador') {
+        botao.style.backgroundColor = '#ff9500';
+      } else {
+        botao.style.backgroundColor = '#333';
+      }
+
+      // Estilo especial para zero
+      if (btn.label === '0') {
+        botao.style.gridColumn = 'span 2';
+        botao.style.borderRadius = '35px';
+        botao.style.textAlign = 'left';
+        botao.style.paddingLeft = '25px';
+      }
+
+      // Hover (simples)
+      botao.addEventListener('mouseover', () => botao.style.opacity = '0.85');
+      botao.addEventListener('mouseout', () => botao.style.opacity = '1');
+
+      // Lógica dos botões
+      botao.addEventListener('click', () => {
+        switch (btn.label) {
+          case 'AC':
+            expressao = '';
+            atualizarVisor('0');
+            break;
+          case '+/-':
+            if (expressao) {
+              try {
+                expressao = (parseFloat(eval(expressao)) * -1).toString();
+                atualizarVisor(expressao);
+              } catch {
+                atualizarVisor('Erro');
+                expressao = '';
+              }
+            }
+            break;
+          case '%':
+            if (expressao) {
+              try {
+                expressao = (parseFloat(eval(expressao)) / 100).toString();
+                atualizarVisor(expressao);
+              } catch {
+                atualizarVisor('Erro');
+                expressao = '';
+              }
+            }
+            break;
+          case '=':
+            try {
+              expressao = eval(expressao).toString();
+              atualizarVisor(expressao);
+            } catch {
+              atualizarVisor('Erro');
+              expressao = '';
+            }
+            break;
+          default:
+            expressao += btn.label;
+            atualizarVisor(expressao);
+            break;
+        }
+      });
+
+      botoes.appendChild(botao);
+    });
+
+    // Montando a calculadora
+    calc.appendChild(visor);
+    calc.appendChild(botoes);
+    app.appendChild(calc);
+  </script>
+</body>
+</html>
