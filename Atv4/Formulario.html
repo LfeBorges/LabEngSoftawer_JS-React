@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulários de Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Formulário de Cadastro</h1>
+
+        <div class="d-flex justify-content-center gap-4 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipoCadastro" id="aluno" checked>
+                <label class="form-check-label" for="aluno">Aluno</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipoCadastro" id="professor">
+                <label class="form-check-label" for="professor">Professor</label>
+            </div>
+        </div>
+
+        <!-- Formulário de Aluno -->
+        <form id="formAluno" class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nomeAluno" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nomeAluno" placeholder="Digite seu nome completo" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="emailAluno" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailAluno" placeholder="fulano@example.com" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="dataNascimentoAluno" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="dataNascimentoAluno" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="telefoneFixoAluno" class="form-label">Telefone Fixo</label>
+                    <input type="text" class="form-control" id="telefoneFixoAluno" placeholder="(99) 9999-9999" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="telefoneCelularAluno" class="form-label">Telefone Celular</label>
+                    <input type="text" class="form-control" id="telefoneCelularAluno" placeholder="(99) 99999-9999" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="cursoAluno" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="cursoAluno" placeholder="Digite seu curso" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="matriculaAluno" class="form-label">Matrícula</label>
+                    <input type="text" class="form-control" id="matriculaAluno" placeholder="Digite sua matrícula" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+        </form>
+
+        <!-- Formulário de Professor -->
+        <form id="formProfessor" class="mb-4" style="display: none;">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nomeProfessor" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nomeProfessor" placeholder="Digite seu nome completo" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="emailProfessor" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailProfessor" placeholder="fulano@example.com" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="dataNascimentoProfessor" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="dataNascimentoProfessor" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="telefoneFixoProfessor" class="form-label">Telefone Fixo</label>
+                    <input type="text" class="form-control" id="telefoneFixoProfessor" placeholder="(99) 9999-9999" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="telefoneCelularProfessor" class="form-label">Telefone Celular</label>
+                    <input type="text" class="form-control" id="telefoneCelularProfessor" placeholder="(99) 99999-9999" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="areaProfessor" class="form-label">Área de Atuação</label>
+                    <input type="text" class="form-control" id="areaProfessor" placeholder="Digite sua área de atuação" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="matriculaProfessor" class="form-label">Matrícula</label>
+                    <input type="text" class="form-control" id="matriculaProfessor" placeholder="Digite sua matrícula" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="lattesProfessor" class="form-label">Lattes</label>
+                    <input type="text" class="form-control" id="lattesProfessor" placeholder="Link do currículo Lattes" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+        </form>
+
+        <div id="saidaDados" class="p-3 bg-light border rounded">
+            <h4>Dados Enviados:</h4>
+            <pre id="dadosExibidos"></pre>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
